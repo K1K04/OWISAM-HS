@@ -67,42 +67,6 @@ Genera un **Security Score (0-100)** basado en vulnerabilidades detectadas.
 
 ---
 
-# 🧠 Arquitectura
-
-Usuario
-   │
-   ▼
-Scanner Principal
-   │
-   ├── Portal Detector
-   ├── Security Analyzer
-   ├── MITM Checker
-   └── Report Generator
-
----
-
-# 📂 Estructura del Proyecto
-
-OWISAM-HS/
-│
-├── owisam_hs/
-│   ├── __init__.py
-│   ├── scanner.py
-│   ├── portal_detector.py
-│   ├── analyzer.py
-│   ├── mitm_checker.py
-│   ├── report_generator.py
-│   └── utils.py
-│
-├── reports/
-├── tests/
-├── requirements.txt
-├── README.md
-├── LICENSE
-└── .gitignore
-
----
-
 # ⚙️ Instalación
 
 ## 1️⃣ Clonar repositorio
