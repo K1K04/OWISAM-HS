@@ -1,0 +1,6 @@
+Captive portal detected! Redirected to: http://example.com/
+No forms detected on the portal page.
+Strict-Transport-Security: Not checked (requests can't get response headers after redirect)
+Content-Security-Policy: Not checked (requests can't get response headers after redirect)
+X-Frame-Options: Not checked (requests can't get response headers after redirect)
+X-XSS-Protection: Not checked (requests can't get response headers after redirect)
