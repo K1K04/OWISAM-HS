@@ -1,131 +1,82 @@
-## Análisis de Seguridad en Hotspots y Portales Cautivos
-
-![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
-![Status](https://img.shields.io/badge/status-active-success.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Security](https://img.shields.io/badge/focus-cybersecurity-red.svg)
-
-OWISAM-HS es una herramienta desarrollada en Python para analizar automáticamente la seguridad de hotspots WiFi y portales cautivos, detectando configuraciones inseguras, autenticación vulnerable y posibles riesgos de ataques Man-In-The-Middle (MITM).
-
----
-
-# 📌 Descripción
-
-Los portales cautivos son utilizados en redes WiFi públicas como hoteles, aeropuertos, universidades y cafeterías. Sin embargo, muchos presentan configuraciones inseguras que pueden exponer a los usuarios a:
-
-- Robo de credenciales
-- Interceptación de tráfico
-- Ataques MITM
-- Secuestro de sesión
-- Falsificación de gateway
-
-OWISAM-HS permite evaluar automáticamente estos riesgos y generar un informe técnico detallado.
-
----
-
-# 🎯 Objetivos del Proyecto
-
-- Detectar automáticamente la presencia de un portal cautivo.
-- Analizar la seguridad del mecanismo de autenticación.
-- Evaluar la protección HTTPS y certificados SSL/TLS.
-- Identificar malas prácticas de seguridad web.
-- Generar un informe técnico con puntuación de riesgo.
-
----
-
-# 🔎 Funcionalidades
-
-## 🛰 Detección de Portal Cautivo
-- Identificación de redirecciones HTTP 302
-- Comparación entre dominio solicitado y dominio redirigido
-- Detección de interceptación HTTP
-
-## 🔐 Análisis de Seguridad Web
-- Verificación de uso de HTTPS
-- Validación de certificado SSL/TLS
-- Detección de cabecera HSTS
-- Análisis de formularios de autenticación
-- Verificación de método POST vs GET
-
-## 🍪 Seguridad de Cookies
-- Detección de cookies sin atributo `Secure`
-- Detección de cookies sin atributo `HttpOnly`
-- Identificación de parámetros sensibles en URL
-
-## 🛡 Evaluación de Riesgo MITM
-- Detección de downgrade HTTP
-- Certificados autofirmados
-- Redirecciones sospechosas
-
-## 📊 Sistema de Puntuación
-Genera un **Security Score (0-100)** basado en vulnerabilidades detectadas.
-
-## 📄 Generación de Informes
-- Salida en consola
-- Informe en HTML
-- Informe en PDF
-
----
-
-# ⚙️ Instalación
-
-## 1️⃣ Clonar repositorio
-
-git clone https://github.com/tuusuario/OWISAM-HS.git
-cd OWISAM-HS
-
-## 2️⃣ Crear entorno virtual
-
-python3 -m venv venv
-source venv/bin/activate
-
-## 3️⃣ Instalar dependencias
-
+git clone https://github.com/K1K04/OWISAM-HS
 pip install -r requirements.txt
 
----
+# OWISAM-HS
 
-# 🛠 Uso
+OWISAM-HS es una herramienta automática para analizar la seguridad de hotspots WiFi y portales cautivos, detectando configuraciones inseguras, autenticación vulnerable y posibles riesgos de ataques Man-In-The-Middle (MITM).
 
-## Escaneo básico
+## Características principales
+- **Detección automática de portales cautivos** (redirección, formularios de login, interceptación HTTP)
+- **Análisis de seguridad web**: HTTPS, certificados, HSTS, cookies, CSRF, parámetros sensibles
+- **Evaluación de riesgo MITM**: downgrade HTTP, certificados autofirmados, redirecciones sospechosas
+- **Sistema de puntuación de seguridad** (Security Score 0-100)
+- **Generación de informes**: consola, HTML (con fecha, hora y portal analizado)
+- **Modo servicio**: monitoriza cambios de red y ejecuta análisis automáticamente (Windows y Linux)
 
+## Instalación
+1. Clona el repositorio:
+	```
+	git clone https://github.com/tuusuario/OWISAM-HS.git
+	cd OWISAM-HS
+	```
+2. Instala las dependencias:
+	```
+	pip install -r requirements.txt
+	```
+
+## Uso básico
+
+### Escaneo manual
+Ejecuta un análisis sobre una URL:
+```
 python -m owisam_hs.scanner --url http://example.com
-
-## Generar informe HTML
-
+```
+Para generar un informe HTML:
+```
 python -m owisam_hs.scanner --url http://example.com --report html
+```
 
-## Generar informe PDF
+### Modo servicio (monitorización automática)
+El servicio detecta cambios de red y ejecuta el análisis automáticamente:
+```
+python owisam_hs_service.py --service
+```
+Para una comprobación única:
+```
+python owisam_hs_service.py --oneshot
+```
 
-python -m owisam_hs.scanner --url http://example.com --report pdf
+Los informes HTML se guardan con el nombre del portal/red y la fecha, por ejemplo:
+```
+owisam_hs_report_FreeWiFi_Lab_2026-04-30_17-04-44.html
+```
 
----
+## ¿Qué analiza OWISAM-HS?
+- Presencia de portal cautivo (redirección, login, POST)
+- Seguridad del formulario de autenticación (HTTPS, método, CSRF)
+- Certificados SSL/TLS y HSTS
+- Cookies seguras (Secure, HttpOnly)
+- Parámetros sensibles en URL
+- Riesgo MITM y malas prácticas
 
-# 📊 Ejemplo de Resultado
-
+## Ejemplo de resultado
+```
 OWISAM-HS Security Report
-==========================
-
-Portal detectado: SI
-Redirección sospechosa: SI
-HTTPS habilitado: NO
-Certificado válido: NO
-HSTS activo: NO
-Cookies seguras: NO
-CSRF token detectado: NO
-
+Portal analizado: 10.0.0.1
+Fecha y hora: 2026-04-30 17:10:05
 Security Score: 35/100
 Nivel de riesgo: ALTO
+Hallazgos:
+- Portal cautivo detectado
+- HTTPS no habilitado
+- Falta cabecera HSTS
+- Formulario de autenticación sin HTTPS
+- No se detectó token CSRF en el formulario
+```
+
+## Notas
+- Compatible con Windows y Linux
+- Uso educativo y de auditoría autorizada
 
 ---
-
-# ⚖️ Consideraciones Legales
-
-Esta herramienta está diseñada exclusivamente con fines educativos y de laboratorio autorizado.
-El uso contra redes sin autorización puede ser ilegal y es responsabilidad exclusiva del usuario.
-
----
-
-# Creado por :
-### Francisco Javier Doblado Alonso
-### Mario Marina Velasco
+Creado por: Francisco Javier Doblado Alonso, Mario Marina Velasco
